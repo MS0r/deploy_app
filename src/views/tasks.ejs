@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= user.username %>'s tasks %>
+    </title>
+    <%- include('partials/head')%>
+</head>
+
+<body>
+    <div class="d-flex">
+        <%- include('partials/navtask')%>
+            <div class="container p-5 fs-5">
+                <div class="row">
+                    <div class="col">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-undone-task" data-bs-toggle="tab"
+                                    data-bs-target="#nav-userundone-task" type="button" role="tab"
+                                    aria-controls="nav-home" aria-selected="true">Undone</button>
+                                <button class="nav-link" id="nav-profile-personal-task" data-bs-toggle="tab"
+                                    data-bs-target="#nav-userdone-task" type="button" role="tab"
+                                    aria-controls="nav-profile" aria-selected="false">Done</button>
+                            </div>
+                        </nav>
+
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane show active" id="nav-userundone-task" role="tabpanel"
+                                aria-labelledby="nav-home-tab" tabindex="0">
+                                <ul class="list-group">
+                                    <%tasks.forEach ((task)=>{%>
+                                        <%if (task.done==0){%>
+                                            <div class="d-flex">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text foreal">
+                                                        <form action="/tasks/done" method="POST">
+                                                            <input type="hidden" name="id" id="done"
+                                                                value="<%=task.id%>" />
+                                                            <button class="done" name="done" value="1">✓</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <button type="button"
+                                                    class="list-group-item list-group-item-action p-3 lenghty overflow-ellipsis"
+                                                    data-bs-toggle="modal" data-bs-target="#modalAdd"
+                                                    data-bs-title="<%= task.title%>" data-bs-body="<%= task.body%>"
+                                                    data-bs-id="<%=task.id%>">
+                                                    <label class="fw-bold" for="firstCheckbox">
+                                                        <%= task.title%>
+                                                    </label>
+                                                    <p class="ms-2 me-auto">
+                                                        <%= task.body%>
+                                                    </p>
+                                                </button>
+                                            </div>
+                                            <%}%>
+                                                <%})%>
+                                                    <button type="button"
+                                                        class="list-group-item list-group-item-action text-center"
+                                                        data-bs-toggle="modal" data-bs-target="#modalAdd"> + Añadir
+                                                        tarea</button>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" id="nav-userdone-task" role="tabpanel"
+                                aria-labelledby="nav-profile-tab" tabindex="0">
+                                <ul class="list-group">
+                                    <%tasks.forEach ((task)=>{%>
+                                        <%if (task.done!=0){%>
+                                            <div class="d-flex">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text foreal">
+                                                        <form action="/tasks/done" method="POST">
+                                                            <input type="hidden" name="id" id="done"
+                                                                value="<%=task.id%>" />
+                                                            <button class="done" name="done" value="0">X</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <button type="button"
+                                                    class="list-group-item list-group-item-action p-3 lenghty overflow-ellipsis"
+                                                    data-bs-toggle="modal" data-bs-target="#modalAdd"
+                                                    data-bs-title="<%= task.title%>" data-bs-body="<%= task.body%>"
+                                                    data-bs-id="<%=task.id%>">
+                                                    <label class="fw-bold" for="firstCheckbox">
+                                                        <%= task.title%>
+                                                    </label>
+                                                    <p class="ms-2 me-auto">
+                                                        <%= task.body%>
+                                                    </p>
+                                                </button>
+                                            </div>
+                                            <%}%>
+                                                <%})%>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col">
+
+                        <%if (!user.team_id){%>
+                            <ul class="list-group">
+                                <button type="button"
+                                    class="list-group-item list-group-item-action from_top text-center"
+                                    data-bs-toggle="modal" data-bs-target="#modalTeams" data-bs-id="<%user.id%>">
+                                    Unirse a un
+                                    equipo
+                                </button>
+                            </ul>
+                            <%} else { %>
+
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-team-taskdo" role="tablist">
+                                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                                            data-bs-target="#nav-team-undone-task" type="button" role="tab"
+                                            aria-controls="nav-home" aria-selected="true">Undone</button>
+                                        <button class="nav-link" id="nav-team-taskun" data-bs-toggle="tab"
+                                            data-bs-target="#nav-team-done-task" type="button" role="tab"
+                                            aria-controls="nav-profile" aria-selected="false">Done</button>
+                                    </div>
+                                </nav>
+
+
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane show active" id="nav-team-undone-task" role="tabpanel"
+                                        aria-labelledby="nav-home-tab" tabindex="0">
+                                        <ul class="list-group">
+                                            <%groupTask.forEach ((task)=>{%>
+                                                <%if (task.done==0){%>
+                                                    <div class="d-flex">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text foreal">
+                                                                <form action="/tasks/done" method="POST">
+                                                                    <input type="hidden" name="id" id="done"
+                                                                        value="<%=task.id%>" />
+                                                                    <button class="done" name="done"
+                                                                        value="1">✓</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                            class="list-group-item list-group-item-action p-3 lenghty overflow-ellipsis"
+                                                            data-bs-toggle="modal" data-bs-target="#modalAdd"
+                                                            data-bs-title="<%= task.title%>"
+                                                            data-bs-body="<%= task.body%> " data-bs-id="<%=task.id%>"
+                                                            data-bs-team-id="<%=task.team_id%>">
+                                                            <label class="fw-bold d-flex" for="firstCheckbox">
+                                                                <%= task.title%>
+                                                            </label>
+                                                            <label class="ms-2 me-auto">
+                                                                <%= task.body%>
+                                                            </label>
+                                                        </button>
+                                                    </div>
+                                                    <%}%>
+                                                        <%})%>
+                                                            <button type="button"
+                                                                class="list-group-item list-group-item-action text-center"
+                                                                data-bs-toggle="modal" data-bs-target="#modalAdd"
+                                                                data-bs-team-id="<%=user.team_id%>"> + Añadir
+                                                                tarea para Equipo</button>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane" id="nav-team-done-task" role="tabpanel"
+                                        aria-labelledby="nav-home-tab" tabindex="0">
+                                        <ul class="list-group">
+                                            <%groupTask.forEach ((task)=>{%>
+                                                <%if (task.done!=0){%>
+                                                    <div class="d-flex">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text foreal">
+                                                                <form action="/tasks/done" method="POST">
+                                                                    <input type="hidden" name="id" id="done"
+                                                                        value="<%=task.id%>" />
+                                                                    <button class="done" name="done"
+                                                                        value="0">X</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                            class="list-group-item list-group-item-action p-3 lenghty overflow-ellipsis"
+                                                            data-bs-toggle="modal" data-bs-target="#modalAdd"
+                                                            data-bs-title="<%= task.title%>"
+                                                            data-bs-body="<%= task.body%> " data-bs-id="<%=task.id%>"
+                                                            data-bs-team-id="<%=task.team_id%>">
+                                                            <label class="fw-bold" for="firstCheckbox">
+                                                                <%= task.title%>
+                                                            </label>
+                                                            <div class="ms-2 me-auto">
+                                                                <%= task.body%>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <%}%>
+                                                        <%})%>
+                                        </ul>
+                                    </div>
+                                    <%}%>
+                                </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+
+    <%- include('modaladd')%>
+        <%- include('modalteams')%>
+</body>
+
+</html>

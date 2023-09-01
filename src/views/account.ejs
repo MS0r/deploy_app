@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+    <%- include('partials/head')%>
+</head>
+
+<body>
+    <div class="d-flex">
+        <%- include('partials/navtask')%>
+            <div class="container d-flex flex-column mb-3 justify-content-center align-items-center">
+                <div class="p-2 d-flex" style="font-size: 20px; font-weight: bold;">Username:
+                    <label style="font-size: 20px; font-weight: normal; margin-left: 5px;">
+                        <%=user.username%>
+                    </label>
+                </div>
+                <div class="p-2 d-flex" style="font-size: 20px; font-weight: bold;">Email:
+                    <label style="font-size: 20px; font-weight: normal; margin-left: 5px;">
+                        <%=user.email%>
+                    </label>
+                </div>
+                <div class="p-2 d-flex" style="font-size: 20px; font-weight: bold;">Team:
+                    <label style="font-size: 20px; font-weight: normal; margin-left: 5px;">
+                        <%=team%>
+                    </label>
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>

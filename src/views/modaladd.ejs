@@ -1,0 +1,70 @@
+<div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="Modal Add" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/tasks" method="POST">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Title</label>
+                        <input name="title" maxlength="30" type="text" id="title" class="form-control" value=""
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Description</label>
+                        <textarea rows="2" cols="25" name="body" id="body" class="form-control"></textarea>
+                    </div>
+                    <input type="hidden" name="id" id="id">
+                    <input type="hidden" name="team_id" id="team_id">
+            </div>
+            <div class="modal-footer">
+                <button type="hidden" class="btn btn-danger" id="delete" name="delete" value="1"
+                    formaction="/tasks/delete" formmethod="POST">Eliminar</button>
+                <button class="btn btn-primary" id="submit_modal"></button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const exampleModal = document.getElementById('modalAdd')
+    if (exampleModal) {
+        exampleModal.addEventListener('show.bs.modal', event => {
+            // Button that triggered the modal
+            const button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            const task = {
+                title: button.getAttribute('data-bs-title'),
+                body: button.getAttribute('data-bs-body'),
+                id: button.getAttribute('data-bs-id'),
+                team_id: button.getAttribute('data-bs-team-id')
+            }
+            // If necessary, you could initiate an Ajax request here
+            // and then do the updating in a callback.
+
+            // Update the modal's content.
+            const modalTitle = exampleModal.querySelector('.modal-title')
+            const modalTitleInput = exampleModal.querySelector('.modal-body #title')
+            const modalBodyInput = exampleModal.querySelector('.modal-body #body')
+            const modalIdInput = exampleModal.querySelector('.modal-body #id')
+            const modalTeamId = exampleModal.querySelector('.modal-body #team_id')
+            const modalSubmit = exampleModal.querySelector('.modal-footer #submit_modal')
+            const deleteButton = exampleModal.querySelector('.modal-footer #delete')
+
+            modalTitle.textContent = (task.title) ? `Task ${task.title}` : 'New Task'
+            modalTitleInput.value = task.title
+            modalBodyInput.value = task.body
+            modalIdInput.value = task.id
+            modalTeamId.value = task.team_id
+            if (!task.id) {
+                modalSubmit.innerHTML = 'Add Task'
+                deleteButton.style.visibility = 'hidden'
+            } else {
+                modalSubmit.innerHTML = 'Edit Task'
+                deleteButton.style.visibility = 'visible'
+            }
+        })
+    }
+</script>

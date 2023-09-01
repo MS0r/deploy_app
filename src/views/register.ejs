@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <%- include('partials/head')%>
+</head>
+
+<body>
+  <%- include('partials/navigation')%>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+      <form action="/register" method="POST">
+        <div class="mb-3">
+          <label for="validationCustom01" class="form-label">Username</label>
+          <input name="username" type="text" class="form-control" id="validationCustom01" required>
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword5" class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" aria-describedby="passwordHelpBlock" required>
+          <div id="passwordHelpBlock" class="text-wrap form-text" style="width: 20rem">
+            Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces,
+            special
+            characters, or emoji.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input name="email" class="form-control" placeholder="name@example.com" required>
+          <%= error %>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary"> Register </button>
+      </form>
+    </div>
+</body>
+
+</html>

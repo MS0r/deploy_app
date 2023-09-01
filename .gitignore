@@ -1,0 +1,11 @@
+#Ignore node_modules
+node_modules/
+
+#Ignore .env
+.env
+
+#ignore API
+src/routes/api.js
+
+#ignore schema.sql
+src/schema.sql

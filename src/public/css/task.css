@@ -1,0 +1,60 @@
+.lenghty {
+    height: 85px;
+    width: 100%;
+}
+
+button.done {
+    border-radius: 5px;
+    width: 50px;
+    height: 45px;
+    cursor: pointer;
+    background-color: white;
+    font-size: 23px;
+    border: 1px solid transparent;
+    color: white;
+    font-weight: bold;
+}
+
+button.done:hover {
+    background-color: white;
+    color: black;
+
+}
+
+button.done:active {
+    background-color: grey;
+}
+
+button.select {
+    margin-top: 15px;
+}
+
+.foreal {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 1px;
+    min-height: 85px;
+    border: 1px solid transparent;
+    width: 80px;
+    border-color: #013b06;
+    background-color: #079415;
+}
+
+.overflow-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.small_label {
+    font-size: 15px;
+    opacity: 0.50;
+}
+
+#body {
+    height: 200px;
+    font-size: 13pt;
+}
+
+.from_top {
+    top: 3rem;
+}

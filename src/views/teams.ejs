@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams</title>
+    <%- include('partials/head')%>
+</head>
+
+<body>
+    <div class="d-flex">
+        <%- include('partials/navtask')%>
+            <div class="container-sm text-center p-4 gap-3">
+                <div class="p-2 g-col-6">
+                    <div class="col">
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#createTeam">
+                                Create Team
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3 g-col-6">
+                        <input class="form-control me-2" type="search" placeholder="Search name or #id"
+                            aria-label="Search" id="searchBar">
+                        <ul class="list-group p-2 fs-5" id="teamsList">
+                        </ul>
+                        <script src="js/searchBar.js"></script>
+                    </div>
+                </div>
+            </div>
+            <%- include('modalCreateTeam')%>
+    </div>
+
+</body>
+
+</html>

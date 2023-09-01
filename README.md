@@ -1,0 +1,2 @@
+This project is about a To-Do web, where you can assign personal tasks or even assign team tasks, all of that is based on the concept of CRUD,
+you can either add tasks, read, update or delete those tasks.

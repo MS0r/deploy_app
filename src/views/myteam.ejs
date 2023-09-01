@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>
+        <%=team.team_name%>
+    </title>
+    <%- include('partials/head')%>
+</head>
+
+<body>
+    <div class="d-flex">
+        <%- include('partials/navtask')%>
+            <h1 style="position: relative; left:10px;">
+                Team: <%=team.team_name%>
+            </h1>
+            <form action="/teams/quitTeam" method="POST" id="quitTeam"></form>
+            <div class="container min-vh-100 d-flex justify-content-center p-3">
+                <ul class="list-group text-center overflow-y-auto w-50 h-50 ">
+                    <h3>Participants
+                    </h3>
+                    <%members.forEach ((member)=>{%>
+                        <%if (user.username==member.username){%>
+                            <li class="list-group-item mb-2">
+                                <%=member.username%> (you)
+                            </li>
+                            <%} else {%>
+                                <li class="list-group-item mb-2">
+                                    <%=member.username%>
+                                </li>
+                                <%}%>
+
+                                    <%})%>
+                </ul>
+                <div style="margin-left: 10px ;">
+                    <button class="btn btn-danger" form="quitTeam">
+                        Quit Team
+                    </button>
+                </div>
+            </div>
+
+</body>
+
+</html>
