@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 import { CustomError } from './errors/customError.js';
+import fs from 'fs'
 
 dotenv.config();
 
@@ -8,10 +9,37 @@ const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
+    port: process.env.MYSQL_PORT
 })
 
+
 const emailreg = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+function createDatabase() {
+    pool.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE ?? 'users_db'}`).then(
+        () => {
+            console.log("Database created")
+            pool.getConnection()
+                .then((conn) => {
+                    conn.changeUser({ database: process.env.MYSQL_DATABASE ?? 'users_db' })
+                        .then(() => { createTables() })
+                        .catch((err) => { throw err })
+                })
+                .catch((err) => { throw err })
+        }).catch((err) => {
+            throw new Error(err)
+        })
+}
+
+function createTables() {
+    var sql = fs.readFileSync('./src/schema.sql').toString().split(';')
+    sql.forEach((q) => {
+        pool.query(q).then(() => { console.log("Table created") }).catch((err) => {
+            throw err
+        })
+    })
+
+}
 
 async function getUser(id, useremail) {
     let rows;
@@ -169,4 +197,4 @@ async function leaveTeam(id) {
     return leaving
 }
 
-export { createUser, getUser, getTasksByUserID, addTask, doneTask, editTask, getTeamTasks, createTeam, addMember, getTeams, deleteTask, getTeamMembers, getTeam, leaveTeam }
+export { createDatabase, createUser, getUser, getTasksByUserID, addTask, doneTask, editTask, getTeamTasks, createTeam, addMember, getTeams, deleteTask, getTeamMembers, getTeam, leaveTeam }

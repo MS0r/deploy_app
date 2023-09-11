@@ -1,0 +1,28 @@
+version: "4.22.1"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - sqlito
+    environment:
+      - MYSQL_HOST=sqlito
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456789
+      - MYSQL_DATABASE=users_db
+      - MYSQL_PORT=3306
+  sqlito:
+    image: mysql
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456789
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+  
