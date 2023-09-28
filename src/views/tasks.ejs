@@ -150,8 +150,12 @@
                                                             <label class="fw-bold d-flex" for="firstCheckbox">
                                                                 <%= task.title%>
                                                             </label>
-                                                            <label class="ms-2 me-auto">
+                                                            <p class="ms-2 me-auto">
                                                                 <%= task.body%>
+                                                            </p>
+                                                            <label
+                                                                class="position-absolute bottom-0 end-0 p-2 opacity-50">
+                                                                <%=task.username%>
                                                             </label>
                                                         </button>
                                                     </div>
@@ -189,9 +193,13 @@
                                                             <label class="fw-bold" for="firstCheckbox">
                                                                 <%= task.title%>
                                                             </label>
-                                                            <div class="ms-2 me-auto">
+                                                            <p class="ms-2 me-auto">
                                                                 <%= task.body%>
-                                                            </div>
+                                                            </p>
+                                                            <label
+                                                                class="position-absolute bottom-0 end-0 p-2 opacity-50">
+                                                                <%=task.username%>
+                                                            </label>
                                                         </button>
                                                     </div>
                                                     <%}%>
